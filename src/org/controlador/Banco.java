@@ -40,7 +40,8 @@ public class Banco {
 					+ "	cidade VARCHAR(50) NOT NULL,"
 					+ "	estado VARCHAR(2) NOT NULL,"
 					+ "	telefone VARCHAR(13),"
-					+ "	email VARCHAR(50)"
+					+ "	email VARCHAR(50),"
+					+ " senha VARCHAR(25) NOT NULL"
 					+ ");");
 			
 			stm.execute("CREATE TABLE IF NOT EXISTS Administrador ("
@@ -52,7 +53,8 @@ public class Banco {
 					+ "	estado VARCHAR(2) NOT NULL,"
 					+ "	telefone VARCHAR(13),"
 					+ "	email VARCHAR(50),"
-					+ "	data_contrat DATE NOT NULL"
+					+ "	data_contrat DATE NOT NULL,"
+					+ " senha VARCHAR(25) NOT NULL"
 					+ ");");
 			
 				stm.execute("CREATE TABLE IF NOT EXISTS Editora ("
@@ -94,7 +96,7 @@ public class Banco {
 					+ " cod_livro INTERGER NOT NULL,"
 					+ " cod_func INTERGER NOT NULL,"
 					+ " CONSTRAINT fk_venda_livro FOREIGN KEY (cod_livro) REFERENCES Livro (cod_livro),"
-					+ " CONSTRAINT fk_venda_funcionario FOREIGN KEY (cod_func) REFERENCES Livro (cod_func)"
+					+ " CONSTRAINT fk_venda_funcionario FOREIGN KEY (cod_func) REFERENCES Funcionario (cod_func)"
 					+");");
 			
 		} catch (SQLException e) {
