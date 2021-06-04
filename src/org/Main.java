@@ -1,14 +1,12 @@
 package org;
 
-import org.interfaces.Login;
-import org.interfaces.Tela;
+import org.interfacegrafica.TelaLogin;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		
-		Tela tela = new Tela();
-		tela.mostrarTela(new Login().criarJanela());
+		new TelaLogin();
 		
 	}
 }

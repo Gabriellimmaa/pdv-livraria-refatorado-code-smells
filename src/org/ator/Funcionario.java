@@ -11,6 +11,7 @@ public class Funcionario {
 	 * Estado -> estado String
 	 * Telefone -> telefone String
 	 * E-mail -> email String
+	 * Senha -> senha String
 	 */
 
 	private int idFunc;
@@ -21,6 +22,7 @@ public class Funcionario {
 	private String estado;
 	private String telefone;
 	private String email;
+	private String senha;
 	
 	public int getIdFunc() {
 		return idFunc;
@@ -84,6 +86,14 @@ public class Funcionario {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	
 }
