@@ -29,7 +29,7 @@ public class EditoraDAO {
 			
 			pstm.execute();
 			
-			System.out.println("Editora salva com sucesso!");
+			System.out.println("EditoraDAO : save() sucesso!");
 			
 		} catch (Exception e) {
 			
@@ -88,7 +88,7 @@ public class EditoraDAO {
 				
 			}
 			
-			System.out.println("Editoras recuperadas com sucesso!");
+			System.out.println("EditoraDAO : get() sucesso!");
 			
 			return editoras;
 			
@@ -147,7 +147,7 @@ public class EditoraDAO {
 			
 			pstm.execute();
 			
-			System.out.println("Editora alterada com sucesso!");
+			System.out.println("EditoraDAO : update() sucesso!");
 			
 		} catch (Exception e ) {
 			
@@ -193,7 +193,7 @@ public class EditoraDAO {
 			
 			pstm.execute();
 			
-			System.out.println("Editora removida com sucesso!");
+			System.out.println("EditoraDAO : delete() sucesso!");
 			
 		} catch (Exception e) {
 			

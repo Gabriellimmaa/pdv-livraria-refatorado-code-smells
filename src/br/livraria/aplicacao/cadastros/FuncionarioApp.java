@@ -21,12 +21,8 @@ public class FuncionarioApp {
 		
 		for(int i = 0; i < funcionarios.size(); i++) {
 			
-			System.out.println("'" + busca + "'");
 			if(funcionarios.get(i).getNome().toLowerCase().contains(busca.toLowerCase())) {
-				System.out.println("OK " + funcionarios.get(i).getNome());
 				funcionariosSelecionados.add(funcionarios.get(i));
-			} else {
-				System.out.println("NOT " + funcionarios.get(i).getNome());
 			}
 			
 		}
@@ -41,9 +37,10 @@ public class FuncionarioApp {
 		
 		Vector<Funcionario> funcionarios = funcionarioDAO.getFuncionarios();
 		
-		Object[][] dados = new Object[funcionarios.size()][9];
+		Object[][] dados = new Object[funcionarios.size()][11];
 		
 		for(int i = 0; i < funcionarios.size(); i++) {
+		
 			dados[i][0] = funcionarios.get(i).getId();
 			dados[i][1] = funcionarios.get(i).getNome();
 			dados[i][2] = funcionarios.get(i).getCpf();
@@ -55,6 +52,10 @@ public class FuncionarioApp {
 			dados[i][8] = funcionarios.get(i).getDataContrato();
 			dados[i][9] = funcionarios.get(i).getSenha();
 			
+			if(funcionarios.get(i).ehAdministrador())
+				dados[i][10] = "Administrador";
+			else
+				dados[i][10] = "Funcionario";
 			
 		}
 		
@@ -64,7 +65,7 @@ public class FuncionarioApp {
 	//Retorna uma matriz de funcionarios a partir de um vector estabelecido previamente
 	public Object[][] getFuncionarios(Vector<Funcionario> funcionarios){
 		
-		Object[][] dados = new Object[funcionarios.size()][9];
+		Object[][] dados = new Object[funcionarios.size()][11];
 		
 		for(int i = 0; i < funcionarios.size(); i++) {
 		
@@ -78,6 +79,11 @@ public class FuncionarioApp {
 			dados[i][7] = funcionarios.get(i).getTelefone();
 			dados[i][8] = funcionarios.get(i).getDataContrato();
 			dados[i][9] = funcionarios.get(i).getSenha();
+			
+			if(funcionarios.get(i).ehAdministrador())
+				dados[i][10] = "Administrador";
+			else
+				dados[i][10] = "Funcionario";
 		}
 		
 		return dados;

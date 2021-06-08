@@ -22,12 +22,8 @@ public class LivroApp {
 		
 		for(int i = 0; i < livros.size(); i++) {
 			
-			System.out.println("'" + busca + "'");
 			if(livros.get(i).getTitulo().toLowerCase().contains(busca.toLowerCase())) {
-				System.out.println("OK " + livros.get(i).getTitulo());
 				livrosSelecionados.add(livros.get(i));
-			} else {
-				System.out.println("NOT " +  livros.get(i).getTitulo());
 			}
 			
 		}
@@ -50,9 +46,9 @@ public class LivroApp {
 			dados[i][2] = livros.get(i).getGenero();
 			dados[i][3] = livros.get(i).getDataPublicada();
 			dados[i][4] = livros.get(i).getAutor();
-			dados[i][5] = livros.get(i).getQtdEstoque();
-			dados[i][6] = livros.get(i).getPrecoUnit();
-			dados[i][7] = livros.get(i).getEditora();
+			dados[i][5] = livros.get(i).getPrecoUnit();
+			dados[i][6] = livros.get(i).getQtdEstoque();
+			dados[i][7] = livros.get(i).getEditora().getNome();
 			
 		}
 		
@@ -66,15 +62,15 @@ public class LivroApp {
 		Object[][] dados = new Object[livros.size()][8];
 		
 		for(int i = 0; i < livros.size(); i++) {
-		
 			dados[i][0] = livros.get(i).getId();
 			dados[i][1] = livros.get(i).getTitulo();
 			dados[i][2] = livros.get(i).getGenero();
 			dados[i][3] = livros.get(i).getDataPublicada();
 			dados[i][4] = livros.get(i).getAutor();
-			dados[i][5] = livros.get(i).getQtdEstoque();
-			dados[i][6] = livros.get(i).getPrecoUnit();
-			dados[i][7] = livros.get(i).getEditora();
+			dados[i][5] = livros.get(i).getPrecoUnit();
+			dados[i][6] = livros.get(i).getQtdEstoque();
+			dados[i][7] = livros.get(i).getEditora().getNome();
+			
 		}
 		
 		return dados;

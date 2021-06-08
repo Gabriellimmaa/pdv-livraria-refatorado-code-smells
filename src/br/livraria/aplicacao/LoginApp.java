@@ -2,6 +2,9 @@ package br.livraria.aplicacao;
 
 import java.util.Vector;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import br.livraria.dao.FuncionarioDAO;
 import br.livraria.model.Funcionario;
 import br.livraria.tela.TelaMenu;
@@ -18,6 +21,9 @@ public class LoginApp {
 	 */
 	public boolean entrar(int idUsuario, String senha) {
 		
+		System.out.println("LoginApp : ID Usuario: " + idUsuario);
+		System.out.println("LoginApp: Senha: " + senha);
+		
 		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 		
 		Vector<Funcionario> funcionarios = funcionarioDAO.getFuncionarios();
@@ -26,7 +32,7 @@ public class LoginApp {
 			
 			if(funcionarios.get(i).getId() == idUsuario && funcionarios.get(i).getSenha().equals(senha)) {
 				
-				System.out.println("Logado com sucesso!");
+				System.out.println("LoginApp : Logado com sucesso!");
 				
 				new TelaMenu(funcionarios.get(i));
 				
@@ -36,6 +42,9 @@ public class LoginApp {
 			
 		}
 		
+		System.out.println("LoginApp : Falha na autenticacao.");
+		
+		JOptionPane.showMessageDialog(new JFrame(), "Falha na autenticacao! ID ou SENHA não coincidem.");
 		return false;
 		
 	}

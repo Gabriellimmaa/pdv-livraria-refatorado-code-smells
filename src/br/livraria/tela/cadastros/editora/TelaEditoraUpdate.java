@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import br.livraria.aplicacao.cadastros.EditoraApp;
@@ -74,11 +75,13 @@ public class TelaEditoraUpdate {
 				editoraAtualizada.setEndereco(inputEndereco.getText());
 				editoraAtualizada.setId(Integer.parseInt(inputId.getText()));
 				
-				System.out.println(editoraAtualizada.getNome());
-				
 				EditoraDAO editoraDAO = new EditoraDAO();
 				
 				editoraDAO.update(editoraAtualizada);
+				
+				new TelaEditora(funcionario);
+				
+				frame.dispose();
 				
 			}
 		});
@@ -134,11 +137,18 @@ public class TelaEditoraUpdate {
 				
 				Editora editora = new EditoraApp().getEditora(id);
 				
-				inputCnpj.setText(editora.getCnpj());
-				inputNome.setText(editora.getNome());
-				inputEndereco.setText(editora.getEndereco());
-				inputId.setText(editora.getId() + "");
-				
+				if(editora == null) {
+					
+					JOptionPane.showMessageDialog(new JFrame(), "ID nao encontrado");
+					
+				} else {
+					
+					inputCnpj.setText(editora.getCnpj());
+					inputNome.setText(editora.getNome());
+					inputEndereco.setText(editora.getEndereco());
+					inputId.setText(editora.getId() + "");
+					
+				}
 			}
 		});
 		btnNewButton.setBounds(138, 30, 94, 33);

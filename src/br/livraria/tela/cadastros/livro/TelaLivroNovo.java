@@ -3,13 +3,18 @@ package br.livraria.tela.cadastros.livro;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import br.livraria.dao.EditoraDAO;
 import br.livraria.dao.LivroDAO;
 import br.livraria.model.Editora;
 import br.livraria.model.Funcionario;
@@ -41,9 +46,11 @@ public class TelaLivroNovo {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 462, 410);
+		frame.setBounds(100, 100, 462, 444);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setTitle("Novo Livro");
+		frame.setLocationRelativeTo(null);
 		
 		textTitulo = new JTextField();
 		textTitulo.setColumns(10);
@@ -78,34 +85,53 @@ public class TelaLivroNovo {
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			
-			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				Livro livro = new Livro();
-				Editora editora = new Editora();
-				Date data = new Date();
+				EditoraDAO editoraDAO = new EditoraDAO();
+				Vector<Editora> editoras = editoraDAO.getEditoras();
 				
-				livro.setTitulo(textTitulo.getText());
-				livro.setGenero(textGenero.getText());
-				livro.setAutor(textAutor.getText());
-				data.setDate((int) Date.parse(textPublicacao.getText()));
-				editora.setId(Integer.parseInt(textCodEditora.getText()));
-				livro.setDataPublicada(data);
-				livro.setEditora(editora);
-				livro.setPrecoUnit(Integer.parseInt(textPreco.getText()));
-				livro.setQtdEstoque(Integer.parseInt(textEstoque.getText()));
+				//Verifica se existe a editora declarada
+				Editora editora = null;
+				for(int i = 0; i < editoras.size(); i++) {
+					if(editoras.get(i).getId() == Integer.parseInt(textCodEditora.getText()))
+						editora = editoras.get(i);
+				}
 				
-				LivroDAO livroDao = new LivroDAO();
-				
-				livroDao.save(livro);
+				if(editora != null) {
+					
+					SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+					Date dataFormatada = null;
+					try {
+						dataFormatada = formato.parse(textPublicacao.getText());
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+					
+					Livro livro = new Livro();
+					
+					livro.setTitulo(textTitulo.getText());
+					livro.setGenero(textGenero.getText());
+					livro.setAutor(textAutor.getText());
+					livro.setDataPublicada(dataFormatada);
+					livro.setEditora(editora);
+					livro.setPrecoUnit(Double.parseDouble(textPreco.getText()));
+					livro.setQtdEstoque(Integer.parseInt(textEstoque.getText()));
+					
+					LivroDAO livroDao = new LivroDAO();
+					
+					livroDao.save(livro);
+					
+				} else {
+					JOptionPane.showMessageDialog(new JFrame(), "Nao existe nenhuma editora com o id especificado");
+				}
 				
 			}
 		});
 		btnSalvar.setForeground(Color.BLACK);
 		btnSalvar.setBackground(Color.BLUE);
-		btnSalvar.setBounds(46, 312, 110, 33);
+		btnSalvar.setBounds(46, 340, 110, 33);
 		frame.getContentPane().add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Voltar");
@@ -120,7 +146,7 @@ public class TelaLivroNovo {
 			}
 		});
 		btnCancelar.setBackground(Color.WHITE);
-		btnCancelar.setBounds(271, 312, 110, 33);
+		btnCancelar.setBounds(265, 340, 110, 33);
 		frame.getContentPane().add(btnCancelar);
 		
 		JLabel lblTitulo = new JLabel("Titulo");

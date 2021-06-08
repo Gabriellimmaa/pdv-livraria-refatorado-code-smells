@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import br.livraria.model.Funcionario;
+import br.livraria.tela.TelaMenu;
 import br.livraria.tela.cadastros.editora.TelaEditora;
 import br.livraria.tela.cadastros.funcionario.TelaFuncionario;
 import br.livraria.tela.cadastros.livro.TelaLivro;
@@ -35,7 +36,7 @@ public class TelaCadastros extends JFrame {
 		JLabel labelNome = new JLabel(funcionario.toString());
 		labelNome.setHorizontalAlignment(SwingConstants.CENTER);
 		labelNome.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		labelNome.setBounds(10, 23, 414, 46);
+		labelNome.setBounds(10, 23, 212, 46);
 		contentPane.add(labelNome);
 		
 		JButton btnFuncionarios = new JButton("Funcionarios");
@@ -77,6 +78,7 @@ public class TelaCadastros extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				new TelaEditora(funcionario);
+				
 				dispose();
 				
 			}
@@ -84,6 +86,22 @@ public class TelaCadastros extends JFrame {
 		btnEditoras.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnEditoras.setBounds(297, 123, 127, 78);
 		contentPane.add(btnEditoras);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				new TelaMenu(funcionario);
+				
+				dispose();
+			}
+		});
+		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnVoltar.setBounds(297, 23, 120, 46);
+		contentPane.add(btnVoltar);
 		
 		setVisible(true);
 	}

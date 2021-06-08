@@ -7,8 +7,8 @@ public class ItemPedido {
 	private Pedido idPedido;
 	private int qtdVendida;
 	private int total;
-	
-	
+
+
 	public Integer getIdItemPedido() {
 		return idItemPedido;
 	}
@@ -39,7 +39,7 @@ public class ItemPedido {
 	public void setTotal(int total) {
 		this.total = total;
 	}
-	
+
 	public ItemPedido(Integer idItemPedido, Livro idLivro, Pedido idPedido, int qtdVendida, int total) {
 		super();
 		this.idItemPedido = idItemPedido;
@@ -48,19 +48,19 @@ public class ItemPedido {
 		this.qtdVendida = qtdVendida;
 		this.total = total;
 	}
-	
+
 	public ItemPedido() {
 		super();
 	}
-	
+
 	@Override
 	public String toString() {
 		return "ItemPedido [idItemPedido=" + idItemPedido + ", idLivro=" + idLivro + ", idPedido=" + idPedido
 				+ ", qtdVendida=" + qtdVendida + ", total=" + total + "]";
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 }

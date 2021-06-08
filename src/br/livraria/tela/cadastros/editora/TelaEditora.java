@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import br.livraria.aplicacao.cadastros.EditoraApp;
 import br.livraria.model.Editora;
 import br.livraria.model.Funcionario;
+import br.livraria.tela.cadastros.TelaCadastros;
 
 public class TelaEditora {
 
@@ -117,7 +118,7 @@ public class TelaEditora {
 		frame.getContentPane().add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Deletar");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewButton_3.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -130,6 +131,23 @@ public class TelaEditora {
 		});
 		btnNewButton_3.setBounds(10, 116, 99, 35);
 		frame.getContentPane().add(btnNewButton_3);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				new TelaCadastros(funcionario);
+				
+				frame.dispose();
+				
+				
+				
+			}
+		});
+		btnVoltar.setBounds(384, 76, 89, 23);
+		frame.getContentPane().add(btnVoltar);
 		
 		frame.setVisible(true);
 	}

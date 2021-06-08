@@ -3,9 +3,6 @@ package br.livraria.tela.cadastros.livro;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,32 +10,30 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import br.livraria.aplicacao.cadastros.EditoraApp;
 import br.livraria.aplicacao.cadastros.LivroApp;
 import br.livraria.dao.LivroDAO;
-import br.livraria.model.Editora;
 import br.livraria.model.Funcionario;
 import br.livraria.model.Livro;
 
-public class TelaLivroUpdate {
+public class TelaLivroDelete {
 
 	private JFrame frame;
-	private JTextField textTitulo;
-	private JTextField textAutor;
-	private JTextField textGenero;
-	private JTextField textCodEditora;
-	private JTextField textPublicacao;
-	private JTextField textEstoque;
+	private JLabel textTitulo;
+	private JLabel textAutor;
+	private JLabel textGenero;
+	private JLabel textCodEditora;
+	private JLabel textPublicacao;
+	private JLabel textEstoque;
 	private JTextField textId;
 	private Funcionario funcionario;
-	private JTextField textPreco;
+	private JLabel textPreco;
 
 
 
 	/**
 	 * Create the application.
 	 */
-	public TelaLivroUpdate(Funcionario funcionario) {
+	public TelaLivroDelete(Funcionario funcionario) {
 		this.funcionario = funcionario;
 		
 		initialize();
@@ -52,77 +47,46 @@ public class TelaLivroUpdate {
 		frame.setBounds(100, 100, 462, 466);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.setTitle("Editar Livro");
+		frame.setTitle("Deletar Livro");
 		frame.setLocationRelativeTo(null);
 		
-		textTitulo = new JTextField();
-		textTitulo.setColumns(10);
+		textTitulo = new JLabel("");
 		textTitulo.setBounds(46, 120, 134, 33);
 		frame.getContentPane().add(textTitulo);
 		
-		textAutor = new JTextField();
-		textAutor.setColumns(10);
+		textAutor = new JLabel("");
 		textAutor.setBounds(46, 189, 134, 33);
 		frame.getContentPane().add(textAutor);
 		
-		textGenero = new JTextField();
-		textGenero.setColumns(10);
+		textGenero = new JLabel("");
 		textGenero.setBounds(46, 258, 134, 33);
 		frame.getContentPane().add(textGenero);
 		
-		textCodEditora = new JTextField();
-		textCodEditora.setColumns(10);
+		textCodEditora = new JLabel("");
 		textCodEditora.setBounds(271, 120, 134, 33);
 		frame.getContentPane().add(textCodEditora);
 		
-		textPublicacao = new JTextField();
-		textPublicacao.setColumns(10);
+		textPublicacao = new JLabel("");
 		textPublicacao.setBounds(271, 189, 134, 33);
 		frame.getContentPane().add(textPublicacao);
 		
-		textEstoque = new JTextField();
-		textEstoque.setColumns(10);
+		textEstoque = new JLabel("");
 		textEstoque.setBounds(271, 258, 134, 33);
 		frame.getContentPane().add(textEstoque);
 		
-		JButton btnSalvar = new JButton("Salvar");
+		JButton btnSalvar = new JButton("Remover");
 		btnSalvar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				Editora editora = new EditoraApp().getEditora(Integer.parseInt(textCodEditora.getText()));
+				LivroDAO livroDAO = new LivroDAO();
 				
-				if(editora != null) {
-					SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-					Date dataFormatada = null;
-					try {
-						dataFormatada = formato.parse(textPublicacao.getText());
-					} catch (ParseException e1) {
-						e1.printStackTrace();
-					}
-					
-					Livro livro = new Livro();
-					
-					livro.setAutor(textAutor.getText());
-					livro.setDataPublicada(dataFormatada);
-					livro.setEditora(editora);
-					livro.setGenero(textGenero.getText());
-					livro.setId(Integer.parseInt(textId.getText()));
-					livro.setPrecoUnit(Double.parseDouble(textPreco.getText()));
-					livro.setQtdEstoque(Integer.parseInt(textEstoque.getText()));
-					livro.setTitulo(textTitulo.getText());
-					
-					LivroDAO livroDAO = new LivroDAO();
-					
-					livroDAO.update(livro);
-					
-					new TelaLivro(funcionario);
-					
-					frame.dispose();
-				} else {
-					JOptionPane.showMessageDialog(new JFrame(), "Editora nao registrada");
-				}
+				livroDAO.deleteByID(Integer.parseInt(textId.getText()));
+				
+				new TelaLivro(funcionario);
+				
+				frame.dispose();
 				
 			}
 		});
@@ -172,8 +136,7 @@ public class TelaLivroUpdate {
 		lblEditoraCod.setBounds(271, 95, 104, 14);
 		frame.getContentPane().add(lblEditoraCod);
 		
-		textPreco = new JTextField();
-		textPreco.setColumns(10);	
+		textPreco = new JLabel("");
 		textPreco.setBounds(46, 327, 134, 33);
 		frame.getContentPane().add(textPreco);
 		

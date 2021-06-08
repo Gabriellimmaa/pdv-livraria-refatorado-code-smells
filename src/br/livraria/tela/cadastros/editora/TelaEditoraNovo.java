@@ -73,6 +73,10 @@ public class TelaEditoraNovo {
 				
 				editoraDAO.save(editora);
 				
+				new TelaEditora(funcionario);
+				
+				frame.dispose();
+				
 			}
 		});
 		btnSalvar.setForeground(Color.BLACK);

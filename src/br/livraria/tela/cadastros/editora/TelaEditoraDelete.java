@@ -8,6 +8,7 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import br.livraria.dao.EditoraDAO;
@@ -39,6 +40,8 @@ public class TelaEditoraDelete {
 		frame.setBounds(100, 100, 417, 321);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setTitle("Deletar Editora");
+		frame.setLocationRelativeTo(null);
 		
 		JButton btnDelete = new JButton("Remover");
 		btnDelete.addActionListener(new ActionListener() {
@@ -51,6 +54,10 @@ public class TelaEditoraDelete {
 				
 				int id = Integer.parseInt(inputId.getText());
 				editoraDAO.deleteByID(id);
+				
+				new TelaEditora(funcionario);
+				
+				frame.dispose();
 				
 			}
 		});
@@ -126,7 +133,7 @@ public class TelaEditoraDelete {
 				
 				Vector<Editora> editoras = editoraDAO.getEditoras();
 				
-				Editora editora = new Editora();
+				Editora editora = null;
 				
 				for(int i = 0; i < editoras.size(); i++) {
 					if(editoras.get(i).getId() == id) {
@@ -134,16 +141,21 @@ public class TelaEditoraDelete {
 					}
 				}
 				
-				
-				labelId.setText(editora.getId() + "");
-				labelNome.setText(editora.getNome());
-				labelCnpj.setText(editora.getCnpj());
-				labelEndereco.setText(editora.getEndereco());
+				if(editora == null) {
+					JOptionPane.showMessageDialog(new JFrame(), "ID nao encontrado");
+				} else {
+					labelId.setText(editora.getId() + "");
+					labelNome.setText(editora.getNome());
+					labelCnpj.setText(editora.getCnpj());
+					labelEndereco.setText(editora.getEndereco());
+				}
 				
 			}
 		});
 		btnNewButton.setBounds(147, 30, 94, 33);
 		frame.getContentPane().add(btnNewButton);
+		
+		frame.setVisible(true);
 		
 	}
 }

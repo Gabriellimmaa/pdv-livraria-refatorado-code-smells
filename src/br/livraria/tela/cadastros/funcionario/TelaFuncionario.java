@@ -11,7 +11,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import br.livraria.aplicacao.cadastros.EditoraApp;
 import br.livraria.aplicacao.cadastros.FuncionarioApp;
 import br.livraria.model.Funcionario;
 import br.livraria.tela.cadastros.TelaCadastros;
@@ -40,10 +39,10 @@ public class TelaFuncionario {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 505, 523);
+		frame.setBounds(100, 100, 936, 523);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.setTitle("Gerenciar Editoras");
+		frame.setTitle("Gerenciar Funcionarios");
 		frame.setLocationRelativeTo(null);
 		
 		JButton btnNewButton = new JButton("Novo");
@@ -82,7 +81,7 @@ public class TelaFuncionario {
 				table.setModel(new DefaultTableModel(
 						new FuncionarioApp().getFuncionarios(funcionarios),
 						new String[] {
-							"ID", "Nome", "CPF", "Endereco", "Cidade", "Estado", "Email", "Telefone", "Contrato", "Senha"
+							"ID", "Nome", "CPF", "Endereco", "Cidade", "Estado", "Email", "Telefone", "Contrato", "Senha", "Cargo"
 						}
 					));
 				
@@ -92,14 +91,14 @@ public class TelaFuncionario {
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 174, 469, 299);
+		scrollPane.setBounds(10, 174, 900, 299);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
-			new EditoraApp().getEditoras(),
+			new FuncionarioApp().getFuncionarios(),
 			new String[] {
-					"ID", "Nome", "CPF", "Endereco", "Cidade", "Estado", "Email", "Telefone", "Contrato", "Senha"
+					"ID", "Nome", "CPF", "Endereco", "Cidade", "Estado", "Email", "Telefone", "Contrato", "Senha", "Cargo"
 			}
 		));
 		scrollPane.setViewportView(table);
@@ -118,6 +117,17 @@ public class TelaFuncionario {
 		frame.getContentPane().add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Deletar");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				new TelaFuncionarioDelete(funcionario);
+				
+				frame.dispose();
+			}
+		});
 		btnNewButton_3.setBounds(10, 116, 99, 35);
 		frame.getContentPane().add(btnNewButton_3);
 		

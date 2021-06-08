@@ -7,14 +7,14 @@ import java.util.Vector;
 
 
 public class Pedido {
-	
+
 	private Integer idPedido;
 	private int totalPedido;
 	private List<ItemPedido> itensPedidos = new ArrayList<ItemPedido>();
 	private ItemPedido itens;
-	
-	
-	
+
+
+
 	public Integer getIdPedido() {
 		return idPedido;
 	}
@@ -42,21 +42,21 @@ public class Pedido {
 	public Pedido() {
 		super();
 	}
-	
+
 	public Pedido(Integer idPedido, int totalPedido, Vector<ItemPedido> pedidos) {
 		super();
 		this.idPedido = idPedido;
 		this.totalPedido = totalPedido;
 		this.itensPedidos = pedidos;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Pedido [idPedido=" + idPedido + ", totalPedido=" + totalPedido + ", pedidos=" + itensPedidos + "]";
 	}
-	
-	
-	
-	
+
+
+
+
 
 }

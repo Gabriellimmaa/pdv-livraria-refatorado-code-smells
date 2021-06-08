@@ -40,10 +40,10 @@ public class TelaLivro {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 505, 523);
+		frame.setBounds(100, 100, 639, 523);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.setTitle("Gerenciar Editoras");
+		frame.setTitle("Gerenciar Livros");
 		frame.setLocationRelativeTo(null);
 		
 		JButton btnNewButton = new JButton("Novo");
@@ -92,14 +92,14 @@ public class TelaLivro {
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 174, 469, 299);
+		scrollPane.setBounds(10, 174, 600, 299);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new LivroApp().getLivros(),
 			new String[] {
-				"ID", "Titulo", "Genero", "Publicacao", "Autor", "Preco", "Editora", "Estoque"
+				"ID", "Titulo", "Genero", "Publicacao", "Autor", "Preco", "Estoque", "Editora"
 			}
 		));
 		scrollPane.setViewportView(table);
@@ -118,6 +118,18 @@ public class TelaLivro {
 		frame.getContentPane().add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Deletar");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				new TelaLivroDelete(funcionario);
+				
+				frame.dispose();
+				
+			}
+		});
 		btnNewButton_3.setBounds(10, 116, 99, 35);
 		frame.getContentPane().add(btnNewButton_3);
 		

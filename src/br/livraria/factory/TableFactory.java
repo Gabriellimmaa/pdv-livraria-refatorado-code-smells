@@ -93,7 +93,7 @@ public void createPedido() {
 	
 		String deletePedido = "DROP TABLE IF EXISTS Pedido";
 		
-		String deleteItemPedido = "DROP TABLE IF EXISTS ItemPedido";
+		String deleteItemPedido = "DROP TABLE IF EXISTS Item_Pedido";
 		
 		String pedido = "CREATE TABLE Pedido ("
 				+ "	id_pedido INTEGER PRIMARY KEY AUTOINCREMENT,"

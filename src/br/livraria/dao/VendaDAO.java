@@ -29,7 +29,7 @@ public class VendaDAO {
 			
 			pstm.execute();
 			
-			System.out.println("Venda salva com sucesso!");
+			System.out.println("VendaDAO : save() sucesso!");
 			
 		} catch (Exception e) {
 			
@@ -87,7 +87,7 @@ public class VendaDAO {
 				
 			}
 			
-			System.out.println("Vendas recuperadas com sucesso!");
+			System.out.println("VendaDAO : get() sucesso!");
 			
 			return vendas;
 			
@@ -145,7 +145,7 @@ public class VendaDAO {
 			
 			pstm.execute();
 			
-			System.out.println("Venda alterada com sucesso!");
+			System.out.println("VendaDAO : update() sucesso!");
 			
 		} catch (Exception e ) {
 			
@@ -191,7 +191,7 @@ public class VendaDAO {
 			
 			pstm.execute();
 			
-			System.out.println("Venda removida com sucesso!");
+			System.out.println("VendaDAO : delete() sucesso!");
 			
 		} catch (Exception e) {
 			

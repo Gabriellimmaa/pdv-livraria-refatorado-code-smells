@@ -72,9 +72,6 @@ public class TelaLogin extends JFrame {
 				int idUsuario = Integer.parseInt(inputUser.getText());
 				String senha = new String(inputSenha.getPassword()).trim();
 				
-				System.out.println("ID Usuario: " + idUsuario);
-				System.out.println("Senha: " + senha);
-				
 				if(new LoginApp().entrar(idUsuario, senha))
 					dispose();
 				

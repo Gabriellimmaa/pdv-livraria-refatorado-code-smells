@@ -3,13 +3,18 @@ package br.livraria.tela.cadastros.funcionario;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import br.livraria.dao.FuncionarioDAO;
 import br.livraria.model.Funcionario;
 
 public class TelaFuncionarioNovo {
@@ -20,11 +25,12 @@ public class TelaFuncionarioNovo {
 	private JTextField textCPF;
 	private JTextField textCidade;
 	private JTextField textEstado;
-	private JTextField textTeflone;
+	private JTextField textTelefone;
 	private JTextField textEmail;
-	private JTextField textSenha;
+	private JPasswordField textSenha;
 	private JTextField textContrato;
 	private Funcionario funcionario;
+	private JCheckBox checkBoxAdministrador;
 
 	/**
 	 * Create the application.
@@ -42,6 +48,8 @@ public class TelaFuncionarioNovo {
 		frame.setBounds(100, 100, 462, 444);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setTitle("Novo Funcionario");
+		frame.setLocationRelativeTo(null);
 		
 		textNome = new JTextField();
 		textNome.setColumns(10);
@@ -63,7 +71,73 @@ public class TelaFuncionarioNovo {
 		textCidade.setBounds(271, 125, 134, 33);
 		frame.getContentPane().add(textCidade);
 		
+		textTelefone = new JTextField();
+		textTelefone.setColumns(10);
+		textTelefone.setBounds(271, 186, 134, 33);
+		frame.getContentPane().add(textTelefone);
+		
+		textEmail = new JTextField();
+		textEmail.setColumns(10);
+		textEmail.setBounds(46, 245, 134, 33);
+		frame.getContentPane().add(textEmail);
+		
+		textSenha = new JPasswordField();
+		textSenha.setColumns(10);
+		textSenha.setBounds(271, 245, 134, 33);
+		frame.getContentPane().add(textSenha);
+		
+		textContrato = new JTextField();
+		textContrato.setColumns(10);
+		textContrato.setBounds(46, 300, 134, 33);
+		frame.getContentPane().add(textContrato);
+		
+		checkBoxAdministrador = new JCheckBox("Administrador");
+		checkBoxAdministrador.setBounds(271, 305, 97, 23);
+		frame.getContentPane().add(checkBoxAdministrador);
+		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+				Date dataFormatada = null;
+				try {
+					dataFormatada = formato.parse(textContrato.getText());
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				
+				Funcionario funcionarioNovo = new Funcionario();
+				
+				if(checkBoxAdministrador.isSelected()) {
+					funcionarioNovo.setAdministrador(true);
+				} else {
+					funcionarioNovo.setAdministrador(false);
+				}
+				
+				funcionarioNovo.setCidade(textCidade.getText());
+				funcionarioNovo.setCpf(textCPF.getText());
+				funcionarioNovo.setDataContrato(dataFormatada);
+				funcionarioNovo.setEmail(textEmail.getText());
+				funcionarioNovo.setEndereco(textEndereco.getText());
+				funcionarioNovo.setEstado(textEstado.getText());
+				funcionarioNovo.setNome(textNome.getText());
+				funcionarioNovo.setSenha(new String(textSenha.getPassword()).trim());
+				funcionarioNovo.setTelefone(textTelefone.getText());
+				
+				FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+				
+				funcionarioDAO.save(funcionarioNovo);
+				
+				new TelaFuncionario(funcionario);
+				
+				frame.dispose();
+				
+			}
+		});
 		btnSalvar.setForeground(Color.BLACK);
 		btnSalvar.setBackground(Color.BLUE);
 		btnSalvar.setBounds(46, 344, 110, 33);
@@ -76,6 +150,7 @@ public class TelaFuncionarioNovo {
 			public void actionPerformed(ActionEvent e) {
 				
 				new TelaFuncionario(funcionario);
+				
 				frame.dispose();
 				
 			}
@@ -113,41 +188,17 @@ public class TelaFuncionarioNovo {
 		lblTelefone.setBounds(271, 171, 46, 14);
 		frame.getContentPane().add(lblTelefone);
 		
-		textTeflone = new JTextField();
-		textTeflone.setColumns(10);
-		textTeflone.setBounds(271, 186, 134, 33);
-		frame.getContentPane().add(textTeflone);
-		
-		textEmail = new JTextField();
-		textEmail.setColumns(10);
-		textEmail.setBounds(46, 245, 134, 33);
-		frame.getContentPane().add(textEmail);
-		
 		JLabel lblEmail = new JLabel("Email");
 		lblEmail.setBounds(46, 230, 46, 14);
 		frame.getContentPane().add(lblEmail);
-		
-		textSenha = new JTextField();
-		textSenha.setColumns(10);
-		textSenha.setBounds(271, 245, 134, 33);
-		frame.getContentPane().add(textSenha);
 		
 		JLabel lblSenha = new JLabel("Senha");
 		lblSenha.setBounds(271, 230, 46, 14);
 		frame.getContentPane().add(lblSenha);
 		
-		textContrato = new JTextField();
-		textContrato.setColumns(10);
-		textContrato.setBounds(46, 300, 134, 33);
-		frame.getContentPane().add(textContrato);
-		
 		JLabel lblContrato = new JLabel("Data Contrato");
 		lblContrato.setBounds(46, 285, 74, 14);
 		frame.getContentPane().add(lblContrato);
-		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Administrador");
-		chckbxNewCheckBox.setBounds(271, 305, 97, 23);
-		frame.getContentPane().add(chckbxNewCheckBox);
 		
 		frame.setVisible(true);
 	}

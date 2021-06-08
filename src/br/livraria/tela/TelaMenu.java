@@ -5,6 +5,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -42,8 +43,16 @@ public class TelaMenu extends JFrame {
 		btnCadastros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				new TelaCadastros(funcionario);
-				dispose();
+				if(funcionario.ehAdministrador()) {
+					
+					new TelaCadastros(funcionario);
+					dispose();
+					
+				} else {
+					
+					JOptionPane.showMessageDialog(new JFrame(), "Acesso Negado");
+					
+				}
 				
 			}
 		});
@@ -73,6 +82,8 @@ public class TelaMenu extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				new TelaLogin();
 				
 				dispose();
 			}

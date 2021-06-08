@@ -37,7 +37,7 @@ public class FuncionarioDAO {
 			
 			pstm.execute();
 			
-			System.out.println("Funcionario salvo com sucesso!");
+			System.out.println("FuncionarioDAO : save() sucesso!");
 			
 		} catch (Exception e) {
 			
@@ -103,7 +103,7 @@ public class FuncionarioDAO {
 				
 			}
 			
-			System.out.println("Funcionarios recuperados com sucesso!");
+			System.out.println("FuncionarioDAO : get() sucesso!");
 			
 			return funcionarios;
 			
@@ -169,7 +169,7 @@ public class FuncionarioDAO {
 			
 			pstm.execute();
 			
-			System.out.println("Funcionario alterado com sucesso!");
+			System.out.println("FuncionarioDAO : update() sucesso!");
 			
 		} catch (Exception e ) {
 			
@@ -215,7 +215,7 @@ public class FuncionarioDAO {
 			
 			pstm.execute();
 			
-			System.out.println("Funcionario removido com sucesso!");
+			System.out.println("FuncionarioDAO : delete() sucesso!");
 			
 		} catch (Exception e) {
 			

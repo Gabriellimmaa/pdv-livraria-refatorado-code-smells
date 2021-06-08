@@ -35,7 +35,7 @@ public class LivroDAO {
 			
 			pstm.execute();
 			
-			System.out.println("Livro salvo com sucesso!");
+			System.out.println("LivroDAO : save() sucesso!");
 			
 		} catch (Exception e) {
 			
@@ -109,7 +109,7 @@ public class LivroDAO {
 				
 			}
 			
-			System.out.println("Livros recuperadas com sucesso!");
+			System.out.println("LivroDAO : get() sucesso!");
 			
 			return livros;
 			
@@ -171,7 +171,7 @@ public class LivroDAO {
 			
 			pstm.execute();
 			
-			System.out.println("Livro alterado com sucesso!");
+			System.out.println("LivroDAO : update() sucesso!");
 			
 		} catch (Exception e ) {
 			
@@ -217,7 +217,7 @@ public class LivroDAO {
 			
 			pstm.execute();
 			
-			System.out.println("Livro removido com sucesso!");
+			System.out.println("LivroDAO : delete() sucesso!");
 			
 		} catch (Exception e) {
 			
