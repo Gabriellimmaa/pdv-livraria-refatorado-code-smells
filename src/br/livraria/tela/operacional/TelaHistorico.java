@@ -14,7 +14,7 @@ public class TelaHistorico {
 	
 	private JFrame frame;
 	private JTable table;
-
+	
 	/**
 	 * Create the application.
 	 * @param funcionario 
@@ -43,9 +43,9 @@ public class TelaHistorico {
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
-			new HistoricoApp().getVendas(),
+			new HistoricoApp().getPedidos(),
 			new String[] {
-				"ID", "Total", "Data"
+				"ID", "Total", "Data", "Funcionario"
 			}
 		));
 		scrollPane.setViewportView(table);

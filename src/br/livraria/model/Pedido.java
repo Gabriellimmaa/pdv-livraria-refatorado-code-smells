@@ -1,62 +1,46 @@
 package br.livraria.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.Vector;
-
-
 
 public class Pedido {
 
-	private Integer idPedido;
-	private int totalPedido;
-	private List<ItemPedido> itensPedidos = new ArrayList<ItemPedido>();
-	private ItemPedido itens;
+	private int id;
+	private Funcionario funcionario;
+	private Date dataVendida;
+	private double totalPreco;
 
-
-
-	public Integer getIdPedido() {
-		return idPedido;
+	public void setTotalPreco(double totalPreco) {
+		this.totalPreco = totalPreco;
 	}
-	public void setIdPedido(Integer idPedido) {
-		this.idPedido = idPedido;
+	public Funcionario getFuncionario() {
+		return funcionario;
 	}
-	public int getTotalPedido() {
-		return totalPedido;
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
-	public void setTotalPedido(int totalPedido) {
-		this.totalPedido = totalPedido;
+	public Date getDataVendida() {
+		return dataVendida;
 	}
-	public List<ItemPedido> getItensPedidos() {
-		return itensPedidos;
+	public void setDataVendida(Date dataVendida) {
+		this.dataVendida = dataVendida;
 	}
-	public void setItensPedidos(List<ItemPedido> pedidos) {
-		this.itensPedidos.add(itens);
+	public Integer getId() {
+		return id;
 	}
-	public ItemPedido getItens() {
-		return itens;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public void setItens(ItemPedido itens) {
-		this.itens = itens;
+	public double getTotalPreco() {
+		return totalPreco;
 	}
-	public Pedido() {
-		super();
+	public void setTotalPreco(Vector<Item> itensPedidos) {
+		
+		double total = 0;
+		for(int i = 0; i < itensPedidos.size(); i++) {
+			total += itensPedidos.get(i).getTotalPreco();
+		}
+		
+		this.totalPreco = total;
 	}
-
-	public Pedido(Integer idPedido, int totalPedido, Vector<ItemPedido> pedidos) {
-		super();
-		this.idPedido = idPedido;
-		this.totalPedido = totalPedido;
-		this.itensPedidos = pedidos;
-	}
-
-	@Override
-	public String toString() {
-		return "Pedido [idPedido=" + idPedido + ", totalPedido=" + totalPedido + ", pedidos=" + itensPedidos + "]";
-	}
-
-
-
-
-
 }

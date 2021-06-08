@@ -12,7 +12,7 @@ public class TableFactory {
 				+ " cpf VARCHAR(11) NOT NULL,"
 				+ " nome VARCHAR(100) NOT NULL,"
 				+ " endereco VARCHAR(100),"
-				+ " cidade VARCHAR(50),"
+				+ " cidade VARCHAR(50),"	
 				+ " estado VARCHAR(2),"
 				+ " telefone VARCHAR(14),"
 				+ " email VARCHAR(100),"
@@ -40,10 +40,23 @@ public class TableFactory {
 				+ "	CONSTRAINT fk_livro_editora FOREIGN KEY (id_editora) REFERENCES Editora (id_editora)"
 				+ ");";
 		
-		String venda = "CREATE TABLE IF NOT EXISTS Venda ("
-				+ "	id_venda INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ " total REAL NOT NULL,"
-				+ "	data_venda DATE"
+		String itemPedido = "CREATE TABLE IF NOT EXISTS Item ("
+				+ "	id_item INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ " id_livro INTEGER NOT NULL,"
+				+ " id_pedido INTEGER NOT NULL,"
+				+ " qtd_vendida INTEGER NOT NULL,"
+				+ " total_preco REAL,"
+				+ " CONSTRAINT fk_item_pedido FOREIGN KEY (id_pedido) REFERENCES Pedido (id_pedido),"
+				+ " CONSTRAINT fk_item_livro FOREIGN KEY (id_livro) REFERENCES Livro (id_livro)"
+				+ ");";
+		
+		String venda = "CREATE TABLE IF NOT EXISTS Pedido ("
+				+ "	id_pedido INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ " id_funcionario INTEGER NOT NULL,"
+				+ " data_venda DATE NOT NULL,"
+				+ " total_preco REAL,"
+				+ " CONSTRAINT fk_venda_pedido FOREIGN KEY (id_pedido) REFERENCES Pedido (id_pedido),"
+				+ " CONSTRAINT fk_venda_funcionario FOREIGN KEY (id_funcionario) REFERENCES Funcionario (id_funcionario)"
 				+ ");";
 		
 		Connection conn = null;
@@ -61,6 +74,8 @@ public class TableFactory {
 			stm.execute(editora);
 			
 			stm.execute(livro);
+			
+			stm.execute(itemPedido);
 			
 			stm.execute(venda);
 			
@@ -89,67 +104,10 @@ public class TableFactory {
 		}
 	}
 	
-public void createPedido() {
-	
-		String deletePedido = "DROP TABLE IF EXISTS Pedido";
+	public static void main(String[] args) {
 		
-		String deleteItemPedido = "DROP TABLE IF EXISTS Item_Pedido";
+		new TableFactory().createTables();
 		
-		String pedido = "CREATE TABLE Pedido ("
-				+ "	id_pedido INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ " total REAL NOT NULL"
-				+ ");";
-		
-		String itemPedido = "CREATE TABLE Item_Pedido ("
-				+ "	id_item_pedido INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ " id_livro INTEGER NOT NULL,"
-				+ " id_pedido INTEGER NOT NULL,"
-				+ " qtd_vendida INTEGER NOT NULL,"
-				+ " total REAL NOT NULL,"
-				+ "	CONSTRAINT fk_pedido_livro FOREIGN KEY (id_livro) REFERENCES Livro (id_livro),"
-				+ "	CONSTRAINT fk_pedido_pedido FOREIGN KEY (id_pedido) REFERENCES Pedido (id_pedido)"
-				+ ");";
-		
-		Connection conn = null;
-		
-		Statement stm = null;
-		
-		try {
-			
-			conn = ConnectionFactory.createConnectionToSQLite();
-			
-			stm = conn.createStatement();
-			
-			stm.execute(deletePedido);
-			
-			stm.execute(deleteItemPedido);
-			
-			stm.execute(pedido);
-			
-			stm.execute(itemPedido);
-			
-		} catch (Exception e){
-			
-			e.printStackTrace();
-			
-		} finally {
-			
-			try {
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-				if(stm != null) {
-					stm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
-			
-		}
 	}
+	
 }
