@@ -36,10 +36,6 @@ public class Item {
 		return totalPreco;
 	}
 	public void setTotalPreco() {
-		this.totalPreco = livro.getPrecoUnit() * qtdVendida;
+		this.totalPreco = livro.getPrecoUnit() * getQtdVendida();
 	}
-	public void setTotalPreco(double totalPreco) {
-		this.totalPreco = totalPreco;
-	}
-
 }

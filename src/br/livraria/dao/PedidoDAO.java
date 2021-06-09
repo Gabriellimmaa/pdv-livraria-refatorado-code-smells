@@ -29,6 +29,8 @@ public class PedidoDAO {
 			pstm.setInt(1, pedido.getFuncionario().getId());
 			pstm.setDate(2, new Date(pedido.getDataVendida().getTime()));
 			
+			pstm.execute();
+			
 			System.out.println("PedidoDAO: save() sucesso!");
 			
 		} catch (Exception e) {
@@ -119,7 +121,7 @@ public class PedidoDAO {
 	public void update(Pedido pedido) {
 		
 		String sql = "UPDATE Pedido SET id_funcionario = ?, data_venda = ?, total_preco = ?"
-				+ " WHERE id_editora = ?";
+				+ " WHERE id_pedido = ?";
 		
 		Connection conn = null;
 		PreparedStatement pstm = null;

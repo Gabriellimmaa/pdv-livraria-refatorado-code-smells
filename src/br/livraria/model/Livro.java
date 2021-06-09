@@ -61,5 +61,7 @@ public class Livro {
 	public void setEditora(Editora editora) {
 		this.editora = editora;
 	}
-	
+	public void removeEstoque(int quantidade) {
+		this.qtdEstoque -= quantidade;
+	}
 }

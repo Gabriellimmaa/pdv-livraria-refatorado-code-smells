@@ -77,6 +77,8 @@ public class ItemDAO {
 
 			pstm = conn.prepareStatement(sql);
 
+			pstm.setInt(1, id);
+			
 			rs = pstm.executeQuery();
 			
 			Vector<Pedido> pedidos = new PedidoDAO().getPedidos();
@@ -84,8 +86,9 @@ public class ItemDAO {
 			Pedido pedido = null;
 			
 			for(int i = 0; i < pedidos.size(); i++) {
-				if(pedidos.get(i).getId() == id)
+				if(pedidos.get(i).getId() == id) {
 					pedido = pedidos.get(i);
+				}
 			}
 
 			while(rs.next()) {
@@ -96,7 +99,9 @@ public class ItemDAO {
 				item.setLivro(new LivroApp().getLivro(rs.getInt("id_livro")));
 				item.setPedido(pedido);
 				item.setQtdVendida(rs.getInt("qtd_vendida"));
-				item.setTotalPreco(rs.getDouble("total_preco"));
+				item.setTotalPreco();
+				
+				System.out.println(item.getLivro().getTitulo());
 
 				itens.add(item);
 

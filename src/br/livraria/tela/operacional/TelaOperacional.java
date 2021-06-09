@@ -21,11 +21,12 @@ public class TelaOperacional extends JFrame {
 	private JPanel contentPane;
 
 	public TelaOperacional(Funcionario funcionario) {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setTitle("Menu Principal");
+		setTitle("Menu Operacional");
 		setLocationRelativeTo(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -51,6 +52,18 @@ public class TelaOperacional extends JFrame {
 		contentPane.add(btnCadastros);
 		
 		JButton btnOperacional = new JButton("Vender");
+		btnOperacional.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				new TelaVenda(funcionario);
+				
+				dispose();
+				
+			}
+		});
 		btnOperacional.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnOperacional.setBounds(147, 123, 140, 78);
 		contentPane.add(btnOperacional);

@@ -7,6 +7,12 @@ import javax.swing.table.DefaultTableModel;
 
 import br.livraria.aplicacao.operacional.HistoricoApp;
 import br.livraria.model.Funcionario;
+import br.livraria.tela.TelaMenu;
+
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class TelaHistorico {
 
@@ -31,14 +37,14 @@ public class TelaHistorico {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 505, 523);
+		frame.setBounds(100, 100, 505, 413);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.setTitle("Gerenciar Editoras");
+		frame.setTitle("Historico");
 		frame.setLocationRelativeTo(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 174, 469, 299);
+		scrollPane.setBounds(10, 11, 469, 299);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
@@ -49,6 +55,19 @@ public class TelaHistorico {
 			}
 		));
 		scrollPane.setViewportView(table);
+		
+		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				new TelaMenu(funcionario);
+				
+				frame.dispose();
+			}
+		});
+		btnNewButton.setBounds(166, 321, 147, 42);
+		frame.getContentPane().add(btnNewButton);
 		
 		frame.setVisible(true);
 	}

@@ -80,11 +80,11 @@ public class TelaEditora {
 				Vector<Editora> editoras = new EditoraApp().pesquisar(busca);
 				
 				table.setModel(new DefaultTableModel(
-						new EditoraApp().getEditoras(editoras),
-						new String[] {
-							"ID", "Nome", "CNPJ", "Endereco"
-						}
-					));
+					new EditoraApp().getEditoras(editoras),
+					new String[] {
+						"ID", "Nome", "CNPJ", "Endereco"
+					}
+				));
 				
 			}
 		});

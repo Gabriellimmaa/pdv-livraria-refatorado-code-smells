@@ -24,6 +24,7 @@ public class TelaMenu extends JFrame {
 	private JPanel contentPane;
 
 	public TelaMenu(Funcionario funcionario) {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
