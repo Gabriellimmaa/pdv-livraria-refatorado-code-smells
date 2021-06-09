@@ -16,7 +16,7 @@ public class VendaApp {
 		Object[][] dados = new Object[itens.size()][4];
 		
 		for(int i = 0; i < itens.size(); i++) {
-			dados[i][0] = itens.get(i).getId();
+			dados[i][0] = itens.get(i).getLivro().getId();
 			dados[i][1] = itens.get(i).getLivro().getTitulo();
 			dados[i][2] = itens.get(i).getLivro().getPrecoUnit();
 			dados[i][3] = itens.get(i).getQtdVendida();

@@ -116,24 +116,35 @@ public class TelaVenda {
 				int id = Integer.parseInt(inputCod);
 				int qtd = Integer.parseInt(inputQtd);
 				
-				Item item = new Item();
+				if(new LivroApp().getLivro(id) == null) {
+					
+					JOptionPane.showMessageDialog(new JFrame(), "ID invalido");
+					
+				} else {
+					
+					Item item = new Item();
+					
+					
+					
+					Livro livro = new LivroApp().getLivro(id);
+					
+					item.setLivro(livro);
+					item.setPedido(pedido);
+					item.setQtdVendida(qtd);
+					item.setTotalPreco();
+					
+					new ItemDAO().save(item);
+					
+					Vector<Item> itens = new ItemDAO().getItens(pedido.getId());
+					
+					pedido.setTotalPreco(itens);
+					
+					lblPreco.setText("Total: " + pedido.getTotalPreco() + "R$");
+					
+					atualizarTabela();
+					
+				}
 				
-				Livro livro = new LivroApp().getLivro(id);
-				
-				item.setLivro(livro);
-				item.setPedido(pedido);
-				item.setQtdVendida(qtd);
-				item.setTotalPreco();
-				
-				new ItemDAO().save(item);
-				
-				Vector<Item> itens = new ItemDAO().getItens(pedido.getId());
-				
-				pedido.setTotalPreco(itens);
-				
-				lblPreco.setText("Total: " + pedido.getTotalPreco() + "R$");
-				
-				atualizarTabela();
 				
 			}
 
@@ -197,6 +208,9 @@ public class TelaVenda {
 					
 					new LivroDAO().update(livro);
 				}
+				
+				lblPreco.setText("Total: " + pedido.getTotalPreco() + " R$");
+				
 				
 				if(!deuErro) {
 				
