@@ -38,6 +38,8 @@ O programa foi desenvolvido inteiramente em Java, utilizamos da estrutura MVC pa
 * Redundância
 * Separação de responsabilidade
 
-Para visualizar com mais detalhes de onde foi aplicado as refatorações dentro do código, acesse o pdf [Trabalho CodeSmells e Refatoração]()
+Para visualizar com mais detalhes de onde foi aplicado as refatorações dentro do código, acesse o pdf [Trabalho CodeSmells e Refatoração.pdf](https://github.com/Gabriellimmaa/pdv-livraria-refatorado-code-smells/blob/main/Trabalho%20CodeSmells%20e%20Refatora%C3%A7%C3%A3o.pdf)
 
 # Autores
+| [<img src="https://github.com/Gabriellimmaa.png" width=115><br><sub>Gabriel Lima</sub>](https://github.com/Gabriellimmaa) | [<img src="https://github.com/CarlosAAndrino.png" width=115><br><sub>Carlos Andrino</sub>](https://github.com/CarlosAAndrino) | [<img src="https://github.com/jeuchaves.png" width=115><br><sub>Jéu Chaves Lima<br>(autor projeto original)</sub>](https://github.com/jeuchaves) |
+| :---: | :---: | :---: |
