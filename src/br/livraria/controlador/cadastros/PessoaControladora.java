@@ -87,6 +87,10 @@ public class PessoaControladora {
     public static boolean save(String campoCpf, String campoNome, String campoEndereco,
                                String campoCidade, String campoEstado, String campoTelefone, String campoEmail) {
 
+    	/*
+		 * Converter as Strings para seus respectivos tipos primitivos
+		 */
+    	
         if (!validarCampos(campoCpf, campoNome)) {
             return false;
         }
@@ -94,6 +98,10 @@ public class PessoaControladora {
         if (!validarCpf(campoCpf)) {
             return false;
         }
+        
+        /*
+		 * Identificar validacao dos campos unicos
+		 */
 
         if (PessoaDAO.getPessoaByCpf(campoCpf) != null) {
             TratamentoErro.exibirMensagem("CPF ja consta na base de dados");
@@ -112,6 +120,10 @@ public class PessoaControladora {
 
     public static boolean update(String campoCpf, String campoNome, String campoEndereco,
                                  String campoCidade, String campoEstado, String campoTelefone, String campoEmail) {
+    	
+    	/*
+		 * Converter as Strings para seus respectivos tipos primitivos
+		 */
 
         if (!validarCampos(campoCpf, campoNome)) {
             return false;
@@ -121,6 +133,10 @@ public class PessoaControladora {
             return false;
         }
 
+        /*
+		 * Identificar validacao dos campos unicos
+		 */
+        
         if (PessoaDAO.getPessoaByCpf(campoCpf) == null) {
             TratamentoErro.exibirMensagem("CPF nao consta na base de dados");
             return false;
@@ -135,6 +151,10 @@ public class PessoaControladora {
 
         return true;
     }
+    
+    /*
+	 * Identificar preenchimento do campos nulos
+	 */
 
     private static boolean validarCampos(String cpf, String nome) {
         if (cpf.isEmpty()) {
@@ -149,6 +169,10 @@ public class PessoaControladora {
 
         return true;
     }
+    
+    /*
+	 * Identificar outras validacoes
+	 */
 
     private static boolean validarCpf(String cpf) {
         if (cpf.length() != 11) {

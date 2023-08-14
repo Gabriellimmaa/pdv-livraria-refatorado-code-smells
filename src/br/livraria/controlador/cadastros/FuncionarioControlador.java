@@ -100,7 +100,12 @@ public class FuncionarioControlador {
                                String campoEmail, String campoSenha, String campoDataContrato,
                                boolean administrador) {
 
-        Date dataContrato = Convert.parseDate(campoDataContrato);
+        
+    	/*
+		 * Converter as Strings para seus respectivos tipos primitivos
+		 */
+    	
+    	Date dataContrato = Convert.parseDate(campoDataContrato);
 
         if (!validarCampos(campoCpf, campoNome, campoSenha)) {
             return false;
@@ -109,6 +114,11 @@ public class FuncionarioControlador {
         if (!validarCpf(campoCpf)) {
             return false;
         }
+        
+        /*
+		 * Identificar validacao dos campos unicos
+		 */
+		
 
         if (PessoaDAO.getPessoaByCpf(campoCpf) != null) {
             TratamentoErro.exibirMensagem("CPF já consta na base de dados");
@@ -131,7 +141,11 @@ public class FuncionarioControlador {
                                  String campoEmail, String campoSenha, String campoDataContrato,
                                  boolean administrador, String campoIdFuncionario) {
 
-        Date dataContrato = Convert.parseDate(campoDataContrato);
+    	/*
+		 * Converter as Strings para seus respectivos tipos primitivos
+		 */
+    	
+    	Date dataContrato = Convert.parseDate(campoDataContrato);
 
         int idFuncionario = parseId(campoIdFuncionario);
         if (idFuncionario == -1) {
@@ -166,6 +180,10 @@ public class FuncionarioControlador {
             return -1;
         }
     }
+    
+    /*
+	 * Identificar preenchimento do campos nulos
+	 */
 
     private static boolean validarCampos(String cpf, String nome, String senha) {
         if (cpf.isEmpty()) {
@@ -185,6 +203,11 @@ public class FuncionarioControlador {
 
         return true;
     }
+    
+    
+    /*
+	 * Identificar outras validacoes
+	 */
 
     private static boolean validarCpf(String cpf) {
         if (cpf.length() != 11) {

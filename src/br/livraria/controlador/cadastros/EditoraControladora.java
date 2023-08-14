@@ -98,6 +98,15 @@ public class EditoraControladora {
     }
 
     public static boolean save(String campoNome, String campoCNPJ, String campoEndereco) {
+    	
+    	/*
+		 * Converter as Strings para seus respectivos tipos primitivos
+		 */
+		
+		/*
+		 * Identificar preenchimento do campos nulos
+		 */
+    	
         if (!validarCampos(campoNome, campoCNPJ)) {
             return false;
         }
@@ -105,12 +114,17 @@ public class EditoraControladora {
         if (!validarCnpj(campoCNPJ)) {
             return false;
         }
+        
+        /*
+		 * Identificar validacao dos campos unicos
+		 */
 
         if (EditoraDAO.existeEditoraComCnpj(campoCNPJ)) {
             TratamentoErro.exibirMensagem("CNPJ já consta na base de dados");
             return false;
         }
 
+        
         Editora editora = new Editora(campoNome, campoCNPJ, campoEndereco);
         EditoraDAO.save(editora);
 
@@ -118,7 +132,12 @@ public class EditoraControladora {
     }
 
     public static boolean update(String campoNome, String campoCNPJ, String campoEndereco, String campoIdEditora) {
-        int idEditora = parseId(campoIdEditora);
+        
+    	/*
+		 * Converter as Strings para seus respectivos tipos primitivos
+		 */
+    	
+    	int idEditora = parseId(campoIdEditora);
         if (idEditora == -1) {
             TratamentoErro.exibirMensagem("Insira um número válido");
             return false;
@@ -151,6 +170,10 @@ public class EditoraControladora {
             return -1;
         }
     }
+    
+    /*
+	 * Identificar preenchimento do campos nulos
+	 */
 
     private static boolean validarCampos(String nome, String cnpj) {
         if (nome.isEmpty()) {
@@ -166,6 +189,10 @@ public class EditoraControladora {
         return true;
     }
 
+    /*
+	 * Identificar outras validacoes
+	 */
+    
     private static boolean validarCnpj(String cnpj) {
         if (cnpj.length() != 14) {
             TratamentoErro.exibirMensagem("CNPJ precisa conter 14 caracteres");

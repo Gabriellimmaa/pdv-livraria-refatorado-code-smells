@@ -14,6 +14,10 @@ public class LoginControlador {
     }
 
     private static Funcionario funcionarioLogado;
+    
+    /*
+	 * Responsavel por validar as entradas de id e senha
+	 */
 
     public static boolean fazerLogin(String idUsuario, String senha) {
         
@@ -39,6 +43,10 @@ public class LoginControlador {
             return false;
         }
     }
+    
+    /*
+	 * Retorna o funcionario que esta logado
+	 */
 
     public static Funcionario getFuncionarioLogado() {
         return funcionarioLogado;

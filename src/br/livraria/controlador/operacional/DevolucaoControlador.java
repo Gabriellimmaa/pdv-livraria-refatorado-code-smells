@@ -28,6 +28,10 @@ public class DevolucaoControlador {
     public static boolean abrirDevolucao() {
 
         String idPedido = JOptionPane.showInputDialog(new JFrame(), "Informe o ID do Pedido");
+        
+        /*
+		 * Verificar se � um inteiro
+		 */
 
         try {
             int id = Integer.parseInt(idPedido);
@@ -36,6 +40,10 @@ public class DevolucaoControlador {
                 TratamentoErro.exibirMensagem( "ID Pedido nao pode ser nulo");
                 return false;
             }
+            
+            /*
+    		 * Verificar se existe
+    		 */
 
             Pedido pedidoRecuperado = PedidoDAO.getPedidoById(id);
             if (pedidoRecuperado == null || pedidoRecuperado.getOperacao().equals("DEVOLUCAO")) {
@@ -66,7 +74,12 @@ public class DevolucaoControlador {
     }
 
     public static boolean removerItem(String idLivro, String qtdDevolvida) {
+    	
+    	/*
+		 * Converter as Strings para seus respectivos tipos primitivos
+		 */
 
+    	
         int id = 0;
         int qtd = 0;
         try {
@@ -76,6 +89,11 @@ public class DevolucaoControlador {
             TratamentoErro.exibirMensagem( "Numeros invalidos");
             return false;
         }
+        
+        /*
+		 * Verificar se � vazio
+		 */
+    	
 
         if (idLivro.equals("")) {
             TratamentoErro.exibirMensagem( "ID Livro nao pode ser nulo");
@@ -86,6 +104,14 @@ public class DevolucaoControlador {
             TratamentoErro.exibirMensagem( "Quantidade nao pode ser nulo");
             return false;
         }
+        
+		/*
+		 * Identificar validacao dos campos unicos
+		 */
+
+		/*
+		 * Identificar outras validacoes
+		 */
 
         if (qtd <= 0) {
             TratamentoErro.exibirMensagem( "Quantidade precisa ser maior que 0");
@@ -97,6 +123,11 @@ public class DevolucaoControlador {
             TratamentoErro.exibirMensagem( "Livro nao consta na base de dados");
             return false;
         }
+        
+        /*
+		 * Criar um Item
+		 * Atualizar o Item antigo
+		 */
 
         Item item = new Item(livro, pedidoDevolucao, qtd);
         ItemDAO.save(item);
@@ -144,6 +175,8 @@ public class DevolucaoControlador {
     }
 
     public static DefaultTableModel updateTable() {
+    	
+    	
         Vector<Item> itens = ItemDAO.getItensByPedido(pedidoVenda.getIdPedido());
         return new DefaultTableModel(
             getItensTable(itens),

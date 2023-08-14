@@ -104,6 +104,10 @@ public class LivroControlador {
         if (!validarCampos(campoTitulo, campoGenero, campoData, campoQtdEstoque, campoPreco, campoIdEditora)) {
             return false;
         }
+        
+        /*
+		 * Converter as Strings para seus respectivos tipos primitivos
+		 */
 
         Date dataPublicada = Convert.parseDate(campoData);
         int qtdEstoque = Integer.parseInt(campoQtdEstoque);
@@ -129,6 +133,10 @@ public class LivroControlador {
         if (!validarCampos(campoTitulo, campoGenero, campoData, campoQtdEstoque, campoPreco, campoIdEditora, campoIdLivro)) {
             return false;
         }
+        
+        /*
+		 * Converter as Strings para seus respectivos tipos primitivos
+		 */
 
         Date dataPublicada = Convert.parseDate(campoData);
         int qtdEstoque = Integer.parseInt(campoQtdEstoque);
@@ -148,6 +156,10 @@ public class LivroControlador {
 
         return true;
     }
+    
+    /*
+	 * Identificar preenchimento do campos nulos
+	 */
 
     private static boolean validarCampos(String titulo, String genero, String data, String qtdEstoque,
                                          String preco, String idEditora, String... outrosCampos) {
@@ -163,6 +175,10 @@ public class LivroControlador {
             }
         }
 
+        /*
+		 * Identificar outras validacoes
+		 */
+        
         int estoque = Integer.parseInt(qtdEstoque);
         double price = Double.parseDouble(preco);
 

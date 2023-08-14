@@ -59,6 +59,11 @@ public class VendaControlador {
     }
 
     public static boolean addItem(String idLivro, String quantidade) {
+    	
+    	/*
+		 * Converter as Strings para seus respectivos tipos primitivos
+		 */
+    	
         try {
             int id = Integer.parseInt(idLivro);
             int qtd = Integer.parseInt(quantidade);
@@ -98,6 +103,10 @@ public class VendaControlador {
                 item = new Item(livro, pedidoAberto, qtd);
                 ItemDAO.save(item);
             }
+            
+            /*
+    		 * Atualizacao do estoque
+    		 */
 
             livro.removeEstoque(qtd);
             LivroDAO.update(livro);
