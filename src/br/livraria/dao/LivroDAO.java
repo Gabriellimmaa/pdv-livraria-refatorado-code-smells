@@ -10,6 +10,8 @@ import br.livraria.factory.ConnectionFactory;
 import br.livraria.model.Editora;
 import br.livraria.model.Livro;
 
+import br.livraria.util.DAO;
+
 public class LivroDAO {
 	
 	private LivroDAO() {}
@@ -45,21 +47,7 @@ public class LivroDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, null);
 		}
 		
 	}
@@ -110,25 +98,7 @@ public class LivroDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, rs);
 			
 		}
 		
@@ -184,25 +154,7 @@ public class LivroDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, rs);
 			
 		}
 		
@@ -244,21 +196,7 @@ public class LivroDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, null);
 			
 		}
 		
@@ -290,21 +228,7 @@ public class LivroDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, null);
 			
 		}
 		

@@ -8,6 +8,8 @@ import java.util.Vector;
 import br.livraria.factory.ConnectionFactory;
 import br.livraria.model.Editora;
 
+import br.livraria.util.DAO;
+
 public class EditoraDAO {
 	
 	private EditoraDAO() {}
@@ -38,22 +40,8 @@ public class EditoraDAO {
 			e.printStackTrace();
 			
 		} finally {
-			
-			try {
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+	
+			DAO.closeResources(conn, pstm, null);
 		}
 		
 	}
@@ -100,25 +88,7 @@ public class EditoraDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, rs);
 			
 		}
 		
@@ -169,26 +139,7 @@ public class EditoraDAO {
 			e.printStackTrace();
 			
 		} finally {
-			
-			try {
-				
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, rs);
 			
 		}
 		
@@ -226,22 +177,7 @@ public class EditoraDAO {
 			e.printStackTrace();
 			
 		} finally {
-			
-			try {
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, null);
 			
 		}
 		
@@ -272,25 +208,21 @@ public class EditoraDAO {
 			e.printStackTrace();
 			
 		} finally {
-			
-			try {
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, null);
 			
 		}
 		
 	}
+
+	public static boolean existeEditoraComCnpj(String cnpj) {
+		Vector<Editora> editoras = EditoraDAO.getEditoras();
+		for (Editora editora : editoras) {
+			if (editora.getCnpj().equals(cnpj)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 
 }

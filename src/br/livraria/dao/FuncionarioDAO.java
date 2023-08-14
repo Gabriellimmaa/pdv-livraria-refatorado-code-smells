@@ -10,6 +10,8 @@ import br.livraria.factory.ConnectionFactory;
 import br.livraria.model.Funcionario;
 import br.livraria.model.Pessoa;
 
+import br.livraria.util.DAO;
+
 public class FuncionarioDAO {
 	
 	private FuncionarioDAO() {}
@@ -24,9 +26,7 @@ public class FuncionarioDAO {
 		PreparedStatement pstm = null;
 		
 		try {
-			
 			conn = ConnectionFactory.createConnectionToSQLite();
-			
 			pstm = conn.prepareStatement(sql);
 			
 			pstm.setString(1, funcionario.getSenha());
@@ -37,34 +37,16 @@ public class FuncionarioDAO {
 			pstm.execute();
 			
 			System.out.println(funcionario.getNome() + " Funcionario salvo com sucesso");
-			
 		} catch (Exception e) {
-			
 			e.printStackTrace();
 			
 		} finally {
-			
-			try {
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, null);
 		}
 		
 	}
 
 	public static Vector<Funcionario> getFuncionarios() {
-		
 		String sql = "SELECT * FROM Funcionario";
 		
 		Vector<Funcionario> funcionarios = new Vector<Funcionario>();
@@ -77,9 +59,7 @@ public class FuncionarioDAO {
 		try {
 			
 			conn = ConnectionFactory.createConnectionToSQLite();
-			
 			pstm = conn.prepareStatement(sql);
-			
 			rs = pstm.executeQuery();
 			
 			while(rs.next()) {
@@ -106,27 +86,7 @@ public class FuncionarioDAO {
 			e.printStackTrace();
 			
 		} finally {
-			
-			try {
-				
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
-			
+			DAO.closeResources(conn, pstm, rs);
 		}
 		
 		return null;
@@ -174,31 +134,10 @@ public class FuncionarioDAO {
 			return funcionario;
 			
 		} catch (Exception e) {
-			
 			e.printStackTrace();
 			
 		} finally {
-			
-			try {
-				
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
-			
+			DAO.closeResources(conn, pstm, rs);
 		}
 		
 		return null;
@@ -237,25 +176,8 @@ public class FuncionarioDAO {
 			e.printStackTrace();
 			
 		} finally {
-			
-			try {
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
-			
+			DAO.closeResources(conn, pstm, null);	
 		}
-		
 	}
 
 	public static void deleteByID(int id) {
@@ -283,25 +205,11 @@ public class FuncionarioDAO {
 			e.printStackTrace();
 			
 		} finally {
-			
-			try {
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
-			
+			DAO.closeResources(conn, pstm, null);
 		}
-		
 	}
+
+
+
 
 }

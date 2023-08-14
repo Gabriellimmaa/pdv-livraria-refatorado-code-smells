@@ -8,6 +8,8 @@ import java.util.Vector;
 import br.livraria.factory.ConnectionFactory;
 import br.livraria.model.Pessoa;
 
+import br.livraria.util.DAO;
+
 public class PessoaDAO {
 	
 	private PessoaDAO() {}
@@ -43,21 +45,7 @@ public class PessoaDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, null);
 		}
 		
 	}
@@ -109,25 +97,7 @@ public class PessoaDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, rs);
 			
 		}
 		
@@ -179,26 +149,7 @@ public class PessoaDAO {
 			e.printStackTrace();
 			
 		} finally {
-			
-			try {
-				
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, rs);
 			
 		}
 		
@@ -239,21 +190,7 @@ public class PessoaDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, null);
 			
 		}
 		
@@ -285,21 +222,7 @@ public class PessoaDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, null);
 			
 		}
 		

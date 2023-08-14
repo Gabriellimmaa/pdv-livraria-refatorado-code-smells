@@ -10,6 +10,8 @@ import br.livraria.model.Item;
 import br.livraria.model.Livro;
 import br.livraria.model.Pedido;
 
+import br.livraria.util.DAO;
+
 public class ItemDAO {
 	
 	private ItemDAO() {}
@@ -42,22 +44,7 @@ public class ItemDAO {
 			e.printStackTrace();
 
 		} finally {
-
-			try {
-
-				if(pstm != null) {
-					pstm.close();
-				}
-
-				if(conn != null) {
-					conn.close();
-				}
-
-			} catch (Exception e) {
-
-				e.printStackTrace();
-
-			}
+			DAO.closeResources(conn, pstm, null);
 		}
 
 	}
@@ -105,25 +92,7 @@ public class ItemDAO {
 
 		} finally {
 
-			try {
-
-				if(rs != null) {
-					rs.close();
-				}
-
-				if(pstm != null) {
-					pstm.close();
-				}
-
-				if(conn != null) {
-					pstm.close();
-				}
-
-			} catch (Exception e) {
-
-				e.printStackTrace();
-
-			}
+			DAO.closeResources(conn, pstm, rs);
 
 		}
 
@@ -175,25 +144,7 @@ public class ItemDAO {
 
 		} finally {
 
-			try {
-
-				if(rs != null) {
-					rs.close();
-				}
-
-				if(pstm != null) {
-					pstm.close();
-				}
-
-				if(conn != null) {
-					pstm.close();
-				}
-
-			} catch (Exception e) {
-
-				e.printStackTrace();
-
-			}
+			DAO.closeResources(conn, pstm, rs);
 
 		}
 
@@ -243,25 +194,7 @@ public class ItemDAO {
 
 		} finally {
 
-			try {
-
-				if(rs != null) {
-					rs.close();
-				}
-
-				if(pstm != null) {
-					pstm.close();
-				}
-
-				if(conn != null) {
-					pstm.close();
-				}
-
-			} catch (Exception e) {
-
-				e.printStackTrace();
-
-			}
+			DAO.closeResources(conn, pstm, rs);
 
 		}
 
@@ -301,21 +234,7 @@ public class ItemDAO {
 
 		} finally {
 
-			try {
-
-				if(pstm != null) {
-					pstm.close();
-				}
-
-				if(conn != null) {
-					conn.close();
-				}
-
-			} catch (Exception e) {
-
-				e.printStackTrace();
-
-			}
+			DAO.closeResources(conn, pstm, null);
 
 		}
 
@@ -351,21 +270,7 @@ public class ItemDAO {
 
 		} finally {
 
-			try {
-
-				if(conn != null) {
-					conn.close();
-				}
-
-				if(pstm != null) {
-					pstm.close();
-				}
-
-			} catch (Exception e) {
-
-				e.printStackTrace();
-
-			}
+			DAO.closeResources(conn, pstm, null);
 
 		}
 

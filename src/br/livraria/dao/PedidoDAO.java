@@ -12,6 +12,8 @@ import br.livraria.model.Item;
 import br.livraria.model.Pedido;
 import br.livraria.model.Pessoa;
 
+import br.livraria.util.DAO;
+
 public class PedidoDAO {
 	
 	private PedidoDAO() {}
@@ -51,21 +53,7 @@ public class PedidoDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, null);
 			
 		}
 		
@@ -98,21 +86,7 @@ public class PedidoDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, null);
 			
 		}
 		
@@ -160,25 +134,7 @@ public class PedidoDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, rs);
 			
 		}
 		
@@ -232,25 +188,7 @@ public class PedidoDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, rs);
 			
 		}
 		
@@ -289,23 +227,7 @@ public class PedidoDAO {
 			e.printStackTrace();
 			
 		} finally {
-			
-			try {
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
-			
+			DAO.closeResources(conn, pstm, null);
 		}
 		
 	}
@@ -342,21 +264,7 @@ public class PedidoDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, null);
 			
 		}
 		
@@ -407,25 +315,7 @@ public class PedidoDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(rs != null) {
-					rs.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-				if(conn != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, rs);
 			
 		}
 		
@@ -459,21 +349,7 @@ public class PedidoDAO {
 			
 		} finally {
 			
-			try {
-				
-				if(conn != null) {
-					conn.close();
-				}
-				
-				if(pstm != null) {
-					pstm.close();
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-				
-			}
+			DAO.closeResources(conn, pstm, null);
 			
 		}
 		

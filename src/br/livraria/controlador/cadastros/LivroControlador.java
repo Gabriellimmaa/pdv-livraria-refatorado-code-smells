@@ -3,8 +3,6 @@ package br.livraria.controlador.cadastros;
 import java.util.Date;
 import java.util.Vector;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import br.livraria.dao.EditoraDAO;
@@ -12,277 +10,172 @@ import br.livraria.dao.LivroDAO;
 import br.livraria.model.Editora;
 import br.livraria.model.Livro;
 import br.livraria.util.Convert;
+import br.livraria.util.TratamentoErro;
 
 public class LivroControlador {
 
-	private LivroControlador() {}
-	
-	private static Object[][] get(String busca) {
-		
-		Object[][] tabela;
-		
-		Vector<Livro> livros = LivroDAO.getLivros();
-		
-		if (busca != "") {
-			
-			Vector<Livro> livrosSelecionados = new Vector<Livro>();
-			
-			for(int i = 0; i < livros.size(); i++) {
-				
-				if(livros.get(i).getTitulo().toLowerCase().contains(busca.toLowerCase()))
-					livrosSelecionados.add(livros.get(i));
-				
-			}
-			
-			livros = livrosSelecionados;
-			
-		}
-		
-		tabela = new Object[livros.size()][8];
-		
-		for(int i = 0; i < livros.size(); i++) {
-			
-			tabela[i][0] = livros.get(i).getIdLivro();
-			tabela[i][1] = livros.get(i).getPrecoUnit();
-			tabela[i][2] = livros.get(i).getTitulo();
-			tabela[i][3] = livros.get(i).getGenero();
-			tabela[i][4] = livros.get(i).getAutor();
-			tabela[i][5] = livros.get(i).getDataPublicada();
-			tabela[i][6] = livros.get(i).getQtdEstoque();
-			tabela[i][7] = livros.get(i).getEditora().getNome();
-			
-		}
-		
-		return tabela;
-		
-	}
-	
-	public static DefaultTableModel updateTable(String busca) {
-		
-		return new DefaultTableModel(
-			LivroControlador.get(busca),
-			new String[] {
-				"ID", "Preco", "Titulo", "Genero", "Autor", "Publicacao", "Estoque", "Editora"
-			}
-		);
-		
-	}
-	
-	public static boolean delete(String idLivro) {
-		
-		int id;
-		try {
-			id = Integer.parseInt(idLivro);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(), "Insira um numero valido");
-			return false;
-		}
-		
-		if(LivroDAO.getLivroById(id) != null) {
-			LivroDAO.deleteByID(id);
-			return true;
-		}
-		
-		JOptionPane.showMessageDialog(new JFrame(), "Livro nao consta na base de dados");
-		return false;
-		
-	}
-	
-	public static Livro search(String idLivro) {
-		
-		int id;
-		try {
-			id = Integer.parseInt(idLivro);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(), "Insira um numero valido");
-			return null;
-		}
-		
-		Livro livro = LivroDAO.getLivroById(id);
-		if(livro == null) {
-			JOptionPane.showMessageDialog(new JFrame(), "Livro nao consta na base de dados");
-			return null;
-		}
-		
-		return livro;
-	}
-	
-	public static boolean save(
-			String campoTitulo, String campoGenero, String campoData, 
-			String campoAutor, String campoQtdEstoque, String campoPreco, 
-			String campoIdEditora) {
-		
-		/*
-		 * Converter as Strings para seus respectivos tipos primitivos
-		 */
-		
-		Date dataPublicada = Convert.parseDate(campoData);
-		
-		int qtdEstoque = 0;
-		double preco = 0;
-		int idEditora = 0;
-		try {
-			qtdEstoque = Integer.parseInt(campoQtdEstoque);
-			preco = Double.parseDouble(campoPreco);
-			idEditora = Integer.parseInt(campoIdEditora);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(), "Insira numeros validos");
-			return false;
-		}
-		
-		/*
-		 * Identificar preenchimento do campos nulos
-		 */
+    private LivroControlador() {
+    }
 
-		if(campoTitulo.equals("")) {
-			JOptionPane.showMessageDialog(new JFrame(), "Titulo nao pode ser nulo");
-			return false;
-		}
-		
-		if(campoGenero.equals("")) {
-			JOptionPane.showMessageDialog(new JFrame(), "Genero nao pode ser nulo");
-			return false;
-		}
-		
-		if(campoQtdEstoque.equals("")) {
-			JOptionPane.showMessageDialog(new JFrame(), "Quantidade Estoque nao pode ser nulo");
-			return false;
-		}
-		
-		if(campoPreco.equals("")) {
-			JOptionPane.showMessageDialog(new JFrame(), "Preco nao pode ser nulo");
-			return false;
-		}
-		
-		if(campoIdEditora.equals("")) {
-			JOptionPane.showMessageDialog(new JFrame(), "ID Editora nao pode ser nulo");
-			return false;
-		}
-		
-		/*
-		 * Identificar validacao dos campos unicos
-		 */
+    private static Object[][] get(String busca) {
+        Object[][] tabela;
 
-		/*
-		 * Identificar outras validacoes
-		 */
-		
-		if(qtdEstoque < 0) {
-			JOptionPane.showMessageDialog(new JFrame(), "Quantidade Estoque precisa ser maior ou igual a 0");
-			return false;
-		}
-		
-		if(preco <= 0) {
-			JOptionPane.showMessageDialog(new JFrame(), "Preco precisa ser maior que 0");
-			return false;
-		}
-		
-		Editora editora = EditoraDAO.getEditoraById(idEditora);
-		if(editora == null) {
-			JOptionPane.showMessageDialog(new JFrame(), "Editora nao consta na base de dados");
-			return false;
-		}
-		
-		Livro livro = new Livro(campoTitulo, campoGenero, dataPublicada, campoAutor, qtdEstoque, preco, editora);	
-		LivroDAO.save(livro);
-		
-		return true;
-		
-	}
+        Vector<Livro> livros = LivroDAO.getLivros();
 
-	public static boolean update(String campoTitulo, String campoGenero, String campoData, 
-			String campoAutor, String campoQtdEstoque, String campoPreco, 
-			String campoIdEditora, String campoIdLivro) {
-		
-		/*
-		 * Converter as Strings para seus respectivos tipos primitivos
-		 */
-		
-		Date dataPublicada = Convert.parseDate(campoData);
-		
-		int qtdEstoque = 0;
-		double preco = 0;
-		int idEditora = 0;
-		int idLivro = 0;
-		try {
-			qtdEstoque = Integer.parseInt(campoQtdEstoque);
-			preco = Double.parseDouble(campoPreco);
-			idEditora = Integer.parseInt(campoIdEditora);
-			idLivro = Integer.parseInt(campoIdLivro);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(new JFrame(), "Insira numeros validos");
-			return false;
-		}
-		
-		/*
-		 * Identificar preenchimento do campos nulos
-		 */
+        if (!busca.isEmpty()) {
+            livros = filtrarLivrosPorBusca(livros, busca);
+        }
 
-		if(campoTitulo.equals("")) {
-			JOptionPane.showMessageDialog(new JFrame(), "Titulo nao pode ser nulo");
-			return false;
-		}
-		
-		if(campoGenero.equals("")) {
-			JOptionPane.showMessageDialog(new JFrame(), "Genero nao pode ser nulo");
-			return false;
-		}
-		
-		if(campoQtdEstoque.equals("")) {
-			JOptionPane.showMessageDialog(new JFrame(), "Quantidade Estoque nao pode ser nulo");
-			return false;
-		}
-		
-		if(campoPreco.equals("")) {
-			JOptionPane.showMessageDialog(new JFrame(), "Preco nao pode ser nulo");
-			return false;
-		}
-		
-		if(campoIdEditora.equals("")) {
-			JOptionPane.showMessageDialog(new JFrame(), "ID Editora nao pode ser nulo");
-			return false;
-		}
-		
-		if(campoIdLivro.equals("")) {
-			JOptionPane.showMessageDialog(new JFrame(), "ID Livro nao pode ser nulo");
-			return false;
-		}
-		
-		/*
-		 * Identificar validacao dos campos unicos
-		 */
+        tabela = new Object[livros.size()][8];
 
-		/*
-		 * Identificar outras validacoes
-		 */
-		
-		if(qtdEstoque < 0) {
-			JOptionPane.showMessageDialog(new JFrame(), "Quantidade Estoque precisa ser maior ou igual a 0");
-			return false;
-		}
-		
-		if(preco <= 0) {
-			JOptionPane.showMessageDialog(new JFrame(), "Preco precisa ser maior que 0");
-			return false;
-		}
-		
-		Editora editora = EditoraDAO.getEditoraById(idEditora);
-		if(editora == null) {
-			JOptionPane.showMessageDialog(new JFrame(), "Editora nao consta na base de dados");
-			return false;
-		}
-		
-		if(LivroDAO.getLivroById(idLivro) == null) {
-			JOptionPane.showMessageDialog(new JFrame(), "Livro nao consta na base de dados");
-			return false;
-		}
-		
-		Livro livro = new Livro(campoTitulo, campoGenero, dataPublicada, campoAutor, qtdEstoque, preco, editora);
-		livro.setIdLivro(idLivro);
-		LivroDAO.update(livro);
-		
-		return true;
-		
-	}
-	
+        for (int i = 0; i < livros.size(); i++) {
+            Livro livro = livros.get(i);
+            tabela[i] = new Object[]{
+                    livro.getIdLivro(), livro.getPrecoUnit(), livro.getTitulo(), livro.getGenero(),
+                    livro.getAutor(), livro.getDataPublicada(), livro.getQtdEstoque(),
+                    livro.getEditora().getNome()
+            };
+        }
+
+        return tabela;
+    }
+
+    private static Vector<Livro> filtrarLivrosPorBusca(Vector<Livro> livros, String busca) {
+        Vector<Livro> livrosFiltrados = new Vector<>();
+        for (Livro livro : livros) {
+            if (livro.getTitulo().toLowerCase().contains(busca.toLowerCase())) {
+                livrosFiltrados.add(livro);
+            }
+        }
+        return livrosFiltrados;
+    }
+
+    public static DefaultTableModel updateTable(String busca) {
+        return new DefaultTableModel(
+                get(busca),
+                new String[]{
+                        "ID", "Preco", "Titulo", "Genero", "Autor", "Publicacao", "Estoque", "Editora"
+                }
+        );
+    }
+
+    public static boolean delete(String idLivro) {
+        int id;
+        try {
+            id = Integer.parseInt(idLivro);
+        } catch (NumberFormatException e) {
+            TratamentoErro.exibirMensagem("Insira um numero valido");
+            return false;
+        }
+
+        Livro livro = LivroDAO.getLivroById(id);
+        if (livro != null) {
+            LivroDAO.deleteByID(id);
+            return true;
+        }
+
+        TratamentoErro.exibirMensagem("Livro nao consta na base de dados");
+        return false;
+    }
+
+    public static Livro search(String idLivro) {
+        int id;
+        try {
+            id = Integer.parseInt(idLivro);
+        } catch (NumberFormatException e) {
+            TratamentoErro.exibirMensagem("Insira um numero valido");
+            return null;
+        }
+
+        Livro livro = LivroDAO.getLivroById(id);
+        if (livro == null) {
+            TratamentoErro.exibirMensagem("Livro nao consta na base de dados");
+            return null;
+        }
+
+        return livro;
+    }
+
+    public static boolean save(
+            String campoTitulo, String campoGenero, String campoData,
+            String campoAutor, String campoQtdEstoque, String campoPreco,
+            String campoIdEditora) {
+
+        if (!validarCampos(campoTitulo, campoGenero, campoData, campoQtdEstoque, campoPreco, campoIdEditora)) {
+            return false;
+        }
+
+        Date dataPublicada = Convert.parseDate(campoData);
+        int qtdEstoque = Integer.parseInt(campoQtdEstoque);
+        double preco = Double.parseDouble(campoPreco);
+        int idEditora = Integer.parseInt(campoIdEditora);
+
+        Editora editora = EditoraDAO.getEditoraById(idEditora);
+        if (editora == null) {
+            TratamentoErro.exibirMensagem("Editora nao consta na base de dados");
+            return false;
+        }
+
+        Livro livro = new Livro(campoTitulo, campoGenero, dataPublicada, campoAutor, qtdEstoque, preco, editora);
+        LivroDAO.save(livro);
+
+        return true;
+    }
+
+    public static boolean update(String campoTitulo, String campoGenero, String campoData,
+                                 String campoAutor, String campoQtdEstoque, String campoPreco,
+                                 String campoIdEditora, String campoIdLivro) {
+
+        if (!validarCampos(campoTitulo, campoGenero, campoData, campoQtdEstoque, campoPreco, campoIdEditora, campoIdLivro)) {
+            return false;
+        }
+
+        Date dataPublicada = Convert.parseDate(campoData);
+        int qtdEstoque = Integer.parseInt(campoQtdEstoque);
+        double preco = Double.parseDouble(campoPreco);
+        int idEditora = Integer.parseInt(campoIdEditora);
+        int idLivro = Integer.parseInt(campoIdLivro);
+
+        Editora editora = EditoraDAO.getEditoraById(idEditora);
+        if (editora == null) {
+            TratamentoErro.exibirMensagem("Editora nao consta na base de dados");
+            return false;
+        }
+
+        Livro livro = new Livro(campoTitulo, campoGenero, dataPublicada, campoAutor, qtdEstoque, preco, editora);
+        livro.setIdLivro(idLivro);
+        LivroDAO.update(livro);
+
+        return true;
+    }
+
+    private static boolean validarCampos(String titulo, String genero, String data, String qtdEstoque,
+                                         String preco, String idEditora, String... outrosCampos) {
+        if (titulo.isEmpty() || genero.isEmpty() || data.isEmpty() || qtdEstoque.isEmpty() || preco.isEmpty() || idEditora.isEmpty()) {
+            TratamentoErro.exibirMensagem("Todos os campos devem ser preenchidos");
+            return false;
+        }
+
+        for (String campo : outrosCampos) {
+            if (campo.isEmpty()) {
+                TratamentoErro.exibirMensagem("Todos os campos devem ser preenchidos");
+                return false;
+            }
+        }
+
+        int estoque = Integer.parseInt(qtdEstoque);
+        double price = Double.parseDouble(preco);
+
+        if (estoque < 0) {
+            TratamentoErro.exibirMensagem("Quantidade Estoque precisa ser maior ou igual a 0");
+            return false;
+        }
+
+        if (price <= 0) {
+            TratamentoErro.exibirMensagem("Preco precisa ser maior que 0");
+            return false;
+        }
+
+        return true;
+    }
 }
